@@ -1,0 +1,22 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Espace entre les éléments */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Espace entre le champ de saisie et le label */
+}
+
+.p-float-label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-danger {
+  color: red;
+  font-size: 0.875rem; /* Ajustez la taille du texte si nécessaire */
+}

@@ -63,15 +63,15 @@ export class ProductsAdminComponent implements OnInit {
     });
   }
 
-  private clearForm() {
-    this.formProduct.reset();
-    this.errorMessages = null;
-  }
-
-  private closeModal() {
+  closeModal() {
     this.displayModal = false;
     this.clearForm();
 
+  }
+
+  private clearForm() {
+    this.formProduct.reset();
+    this.errorMessages = null;
   }
 
   showModalCreateProduct() {
