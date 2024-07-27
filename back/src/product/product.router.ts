@@ -1,9 +1,12 @@
 import express, { Request, Response } from "express";
+import { ProductService } from "./product.service";
 const product = express.Router();
+const productService = new ProductService();
 
-product.get('/', (req: Request, res: Response) => {
-
-
+product.get('/', async (req: Request, res: Response) => {
+    const products = await productService.getProducts();
+    console.log(products)
+    res.json(products);
 });
 
 product.get('/:uid', (req: Request, res: Response) => {
@@ -36,4 +39,4 @@ product.delete('/:productId', (req: Request, res: Response) => {
 });
 
 
-export default { product };
+export default product;
