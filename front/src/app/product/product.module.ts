@@ -8,9 +8,10 @@ import { RatingModule } from "primeng/rating";
 import { DropdownModule } from "primeng/dropdown";
 import { FormsModule } from "@angular/forms";
 import { ChipsModule } from "primeng/chips";
+import { ProductsAdminComponent } from './products-admin/products-admin.component';
 
 @NgModule({
-  declarations: [ProductsComponent],
+  declarations: [ProductsComponent, ProductsAdminComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,
