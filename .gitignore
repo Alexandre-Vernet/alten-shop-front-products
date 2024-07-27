@@ -1,3 +1,5 @@
 /front/node_modules/
 /front/.angular/
 /.idea/
+/back/node_modules/
+/back/dist/
