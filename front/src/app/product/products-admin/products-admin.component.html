@@ -71,12 +71,24 @@
   </ng-template>
 </p-dialog>
 
-<p-table [value]="products" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
+<p-table [value]="products"
+          [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]"
+          [responsive]="true" [scrollable]="true"
+           [loadingIcon]="'pi pi-spinner'"
+         styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
   <ng-template pTemplate="header">
     <tr>
-      <th>Code</th>
-      <th>Name</th>
-      <th>Action</th>
+      <th>
+        Code
+        <p-sortIcon field="code"></p-sortIcon>
+      </th>
+      <th>
+        Name
+        <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th>
+        Action
+      </th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-product>
