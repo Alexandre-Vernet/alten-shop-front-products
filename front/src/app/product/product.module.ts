@@ -6,10 +6,12 @@ import { DataViewModule } from "primeng/dataview";
 import { ButtonModule } from "primeng/button";
 import { RatingModule } from "primeng/rating";
 import { DropdownModule } from "primeng/dropdown";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ChipsModule } from "primeng/chips";
 import { ProductsAdminComponent } from './products-admin/products-admin.component';
 import { TableModule } from "primeng/table";
+import { DialogModule } from "primeng/dialog";
+import { AutoCompleteModule } from "primeng/autocomplete";
 
 @NgModule({
   declarations: [ProductsComponent, ProductsAdminComponent],
@@ -22,7 +24,10 @@ import { TableModule } from "primeng/table";
     DropdownModule,
     FormsModule,
     ChipsModule,
-    TableModule
+    TableModule,
+    DialogModule,
+    AutoCompleteModule,
+    ReactiveFormsModule
   ]
 })
 export class ProductModule { }

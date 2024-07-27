@@ -17,15 +17,17 @@ product.get('/:productId', (req: Request, res: Response) => {
 });
 
 // Create
-product.post('/', (req: Request, res: Response) => {
+product.post('/', async (req: Request, res: Response) => {
     const { product } = req.body;
-   res.json( productService.createProduct(product));
+    const createdProduct = await productService.createProduct(product);
+    res.status(201).json(createdProduct);
 });
 
 // Update
 product.put('/:productId', (req: Request, res: Response) => {
     const { productId } = req.params;
     const { product } = req.body;
+    console.log(product)
     res.json(productService.updateProduct(Number(productId), product));
 });
 
