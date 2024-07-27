@@ -9,6 +9,7 @@ import { DropdownModule } from "primeng/dropdown";
 import { FormsModule } from "@angular/forms";
 import { ChipsModule } from "primeng/chips";
 import { ProductsAdminComponent } from './products-admin/products-admin.component';
+import { TableModule } from "primeng/table";
 
 @NgModule({
   declarations: [ProductsComponent, ProductsAdminComponent],
@@ -20,7 +21,8 @@ import { ProductsAdminComponent } from './products-admin/products-admin.componen
     RatingModule,
     DropdownModule,
     FormsModule,
-    ChipsModule
+    ChipsModule,
+    TableModule
   ]
 })
 export class ProductModule { }

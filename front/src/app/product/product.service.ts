@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from "rxjs";
   providedIn: 'root'
 })
 export class ProductService {
+
   private productsSubject$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>(
     [
       {
@@ -369,7 +370,6 @@ export class ProductService {
         "rating": 8
       }
     ]
-
   );
   products: Observable<Product[]> = this.productsSubject$.asObservable();
 
