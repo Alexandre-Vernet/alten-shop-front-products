@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from "./product";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, catchError, Observable, tap, throwError } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { MessageService } from "primeng/api";
 
@@ -22,30 +22,45 @@ export class ProductService {
         this.productsSubject$.next(products);
       });
   }
+
   private showSuccess(message: string) {
-    this.messageService.add({severity:'success', summary: 'Success', detail: message});
+    this.messageService.add({severity: 'success', summary: 'Success', detail: message});
   }
 
-  createProduct(product: Product) {
-    this.http.post(this.url, {product})
-      .subscribe((product: Product) => {
-        const products = this.productsSubject$.getValue();
-        this.productsSubject$.next([...products, product])
-        this.showSuccess(`Product ${product.name} created`);
-      });
+  createProduct(product: Product): Observable<Product> {
+    return this.http.post(this.url, {product})
+      .pipe(
+        catchError(err => {
+            return throwError(err);
+          },
+        ),
+        tap((product: Product) => {
+            const products = this.productsSubject$.getValue();
+            this.productsSubject$.next([...products, product])
+            this.showSuccess(`Product ${product.name} created`);
+          }
+        )
+      );
   }
 
-  updateProduct(product: Product) {
-    this.http.put(`${this.url}/${product.id}`, {product})
-      .subscribe(() => {
-        const products = this.productsSubject$.getValue();
-        const index = products.findIndex(p => p.id === product.id);
-        if (index > -1) {
-          products[index] = product;
-        }
-        this.productsSubject$.next(products);
-        this.showSuccess(`Product ${product.name} updated`);
-      });
+  updateProduct(product: Product): Observable<Product> {
+    return this.http.put(`${this.url}/${product.id}`, {product})
+      .pipe(
+        catchError(err => {
+            return throwError(err);
+          },
+        ),
+        tap((updateProduct: Product) => {
+          const products = this.productsSubject$.getValue();
+          const index = products.findIndex(p => p.id === product.id);
+          if (index > -1) {
+            products[index] = product;
+          }
+          this.productsSubject$.next(products);
+          this.showSuccess(`Product ${product.name} updated`);
+          return updateProduct;
+        })
+      )
   }
 
   deleteProduct(product: Product) {

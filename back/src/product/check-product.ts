@@ -1,12 +1,10 @@
-// checkProduct.ts
 import { Request, Response, NextFunction } from 'express';
 import { Product } from "./product";
 
 export const checkProduct = (req: Request, res: Response, next: NextFunction) => {
     const product: Product = req.body['product'];
 
-    // Validation
-    if (!product.name || !product.description || !product.price || !product.inventoryStatus || !product.rating || !product.quantity || !product.image) {
+    if (!product.name || !product.description || !product.inventoryStatus || !product.image) {
         return res.status(400).json({ error: 'All properties are required' });
     }
 
@@ -31,6 +29,5 @@ export const checkProduct = (req: Request, res: Response, next: NextFunction) =>
         return res.status(400).json({ error: 'Image must be a jpg or png file' });
     }
 
-    // If all checks pass, proceed to the next middleware or route handler
     next();
 };
