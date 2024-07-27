@@ -1,12 +1,16 @@
 <p-button (click)="showModalCreateProduct()" icon="pi pi-external-link" label="Show"></p-button>
-<p-dialog header="Create a product" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
+<p-dialog [header]="getHeaderTitle()"
+          [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
           [draggable]="false" [resizable]="false">
-  <form [formGroup]="formProduct" (ngSubmit)="mode === 'create' ? createProduct() : updateProduct()">
+  <form [formGroup]="formProduct" (ngSubmit)="mode === Mode.create ? createProduct() : updateProduct()">
     <div class="m-0">
       <!-- Code -->
       <span class="p-float-label">
       <input id="code" type="text" pInputText formControlName="code">
       <label for="code">Code</label>
+        <ng-container *ngIf="errorMessages && errorMessages.trim() !== ''">
+          <p class="text-danger">{{ errorMessages }}</p>
+        </ng-container>
     </span>
 
       <!-- Name -->

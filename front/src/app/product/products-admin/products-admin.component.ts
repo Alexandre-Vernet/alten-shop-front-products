@@ -15,11 +15,12 @@ export enum Mode {
 })
 export class ProductsAdminComponent implements OnInit {
 
+  protected readonly Mode = Mode;
   products: Product[] = [];
   displayModal: boolean;
   mode: Mode = Mode.create;
   formProduct = new FormGroup({
-    id: new FormControl({ value: '', disabled: true }),
+    id: new FormControl({value: '', disabled: true}),
     code: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
@@ -30,10 +31,12 @@ export class ProductsAdminComponent implements OnInit {
     inventoryStatus: new FormControl('', [Validators.required]),
     rating: new FormControl(0, [Validators.required, Validators.min(0), Validators.max(5)]),
   });
+  errorMessages: string;
 
   constructor(
     private readonly productService: ProductService,
-  ) { }
+  ) {
+  }
 
   private getFormProduct(): Product {
     return {
@@ -50,10 +53,25 @@ export class ProductsAdminComponent implements OnInit {
     };
   }
 
+  getHeaderTitle(): string {
+    return this.mode === Mode.create ? 'Create Product' : `Update ${this.getFormProduct().name}`;
+  }
+
   ngOnInit(): void {
     this.productService.products.subscribe(products => {
       this.products = products;
     });
+  }
+
+  private clearForm() {
+    this.formProduct.reset();
+    this.errorMessages = null;
+  }
+
+  private closeModal() {
+    this.displayModal = false;
+    this.clearForm();
+
   }
 
   showModalCreateProduct() {
@@ -63,12 +81,21 @@ export class ProductsAdminComponent implements OnInit {
   }
 
   createProduct() {
-    this.productService.createProduct(this.getFormProduct());
-    this.displayModal = false;
+    this.productService.createProduct(this.getFormProduct())
+      .subscribe({
+        next: () => {
+          this.clearForm();
+          this.closeModal();
+        },
+        error: (err) => {
+          this.errorMessages = err.error.error;
+        },
+      });
   }
 
   openModalUpdateProduct(product: Product) {
     this.mode = Mode.update;
+    this.errorMessages = null;
     this.formProduct.setValue({
       id: product.id.toString(),
       code: product.code,
@@ -85,9 +112,16 @@ export class ProductsAdminComponent implements OnInit {
   }
 
   updateProduct() {
-    this.productService.updateProduct(this.getFormProduct());
-    this.displayModal = false;
-    this.mode =Mode.create;
+    const product: Product = this.getFormProduct();
+    this.productService.updateProduct(product).subscribe({
+      next: () => {
+        this.clearForm();
+        this.closeModal();
+      },
+      error: (err) => {
+        this.errorMessages = err.error.error;
+      },
+    });
   }
 
   deleteProduct(product: Product) {
