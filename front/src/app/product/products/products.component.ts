@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from "../product";
-import { ProductService } from "../product.service";
-import { SelectItem } from "primeng/api";
+import { Product } from '../product';
+import { ProductService } from '../product.service';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-products',
@@ -18,13 +18,12 @@ export class ProductsComponent implements OnInit {
   sortKey: string;
 
   onSortChange(event) {
-    let value = event.value;
+    const value = event.value;
 
     if (value.indexOf('!') === 0) {
       this.sortOrder = -1;
       this.sortField = value.substring(1, value.length);
-    }
-    else {
+    } else {
       this.sortOrder = 1;
       this.sortField = value;
     }
@@ -32,7 +31,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private readonly productService: ProductService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.productService.products.subscribe(products => {
