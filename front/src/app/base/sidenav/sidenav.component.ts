@@ -25,7 +25,7 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   public onMouseover(hovering: boolean): void {
