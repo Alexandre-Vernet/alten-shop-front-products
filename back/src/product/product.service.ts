@@ -19,8 +19,8 @@ export class ProductService {
         return await myDataSource.getRepository(ProductEntity).save(product);
     }
 
-    async updateProduct(product: ProductEntity) {
-        return await myDataSource.getRepository(ProductEntity).save(product);
+    async updateProduct(productId: number, product: ProductEntity) {
+        return await myDataSource.getRepository(ProductEntity).update(productId, product);
     }
 
     async deleteProduct(productId: number) {
