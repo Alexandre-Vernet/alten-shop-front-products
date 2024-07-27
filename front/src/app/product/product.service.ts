@@ -53,7 +53,6 @@ export class ProductService {
       .subscribe(() => {
         const products = this.productsSubject$.getValue();
         const index = products.findIndex(p => p.id === product.id);
-        console.log(index)
         if (index > -1) {
           products.splice(index, 1);
         }

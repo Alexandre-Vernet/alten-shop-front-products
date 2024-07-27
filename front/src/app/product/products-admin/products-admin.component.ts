@@ -93,5 +93,4 @@ export class ProductsAdminComponent implements OnInit {
   deleteProduct(product: Product) {
     this.productService.deleteProduct(product);
   }
-
 }
