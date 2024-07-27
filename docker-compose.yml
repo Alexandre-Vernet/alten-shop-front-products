@@ -1,0 +1,12 @@
+version: '3'
+services:
+  alten-shop-db:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=alten-shop-root-password
+      - MYSQL_DATABASE=alten-shop
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
