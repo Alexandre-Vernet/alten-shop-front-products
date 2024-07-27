@@ -2,6 +2,11 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 const app = express();
+import cors from "cors";
+app.use(cors({
+    origin: 'http://localhost:4201'
+
+}));
 const port = process.env.PORT || 3001;
 import { myDataSource } from "./app-data-source";
 import productRouter from "./product/product.router";
