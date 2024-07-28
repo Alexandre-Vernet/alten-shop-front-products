@@ -11,7 +11,10 @@ export const myDataSource = new DataSource({
     username: MYSQL_USER,
     password: MYSQL_PASSWORD,
     database: MYSQL_DATABASE,
-    entities: ["src/product/product-entity.ts"],
+    entities: [
+        "src/product/product-entity.ts",
+        "dist/product/product-entity.js",
+    ],
     logging: true,
     synchronize: true,
 })

@@ -11,7 +11,7 @@ export class ProductService {
 
   private productsSubject$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
   products: Observable<Product[]> = this.productsSubject$.asObservable();
-  url = 'http://localhost:3001/api/products';
+  url = 'http://alten-shop-api:3000/api/products';
 
   constructor(
     private readonly http: HttpClient,
