@@ -1,4 +1,48 @@
-# Front-end
+# Lancement de l'environnement local
+
+### 1. Base de données
+```sh
+docker-compose up alten-shop-db -d
+```
+
+### 2. Front-end
+```sh
+cd ./front
+npm i
+npm run start
+```
+
+### 3. Back-end
+```sh
+cd ./back
+cp .env.example .env
+npm i
+npm run dev
+```
+
+## Docker
+La configuration Docker est pratiquement terminée, je n'ai pas eu le temps de le finir intégralement.
+Vous trouverez un docker-compose avec 3 conteneurs (front api bdd). J'ai laissé les valeurs dans les environnements pour faciliter le lancement du conteneur. Les images ont également été publiée sur mon DockerHub, il n'y a pas besoin de les build.
+Il reste 1 ou 2 problème pour terminer cette partie : 
+- La commande `npm run start` ne fonctionne pas correctement et empêche le conteneur de fonctionner
+- Le conteneur front n'arrive pas à communiquer avec le conteneur api (même si le front arrive à faire un CURL sur le back)
+- Il reste également à gérer les URL (par exemple dans front/src/app/product.product.service.ts, il faut mettre à jour l'URL avec le nom du conteneur back comme hôte, pour ça, j'aurai créé le fichier environment.prod et environment afin de dinstiguer les 2 URL comme [ici](https://github.com/Alexandre-Vernet/SuperStore/tree/main/apps/superstore/src/environments)
+- Enfin, gérer des secrets (sur GitHub par exemple), pour ne pas laisser les variables d'environnement en dur dans le docker-compose et évidemment, vider le fichier .env.example
+
+## Base de données
+La base de données est une base MySQL qui s'éxecute sur un conteneur Docker. A son lancement, un fichier SQL est chargé afin d'alimenter la base de données.
+
+## Environnement
+J'ai volontairement laissé les valeurs dans le .env.example pour vous permettre le lancement rapide de l'application. Il en est de même pour le script de bdd.
+
+# Features
+Le projet est intégralement terminé
+- CRUD product (avec gestion des erreurs (middleware checkProduct) et mise à jour en temps réel sur le front
+- Filtre / tri / recherche / pagination des produits
+- Docker (pratiquement terminé)
+
+
+------------------------------------------------
 
 Créer un module angular "product" avec 2 composants (basés sur primeng): 
  - **products-admin** : qui liste les produits et qui permet de les administrer (ajouter, supprimer, modifier).
